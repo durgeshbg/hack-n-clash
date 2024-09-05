@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Launch Coding Contest</title>
+    <style>
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #ffffff, #a4a4fd);
+        overflow: hidden;
+      }
+
+      button {
+        padding: 20px 40px;
+        font-size: 48px;
+        background-color: #ff5e57;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        transition: background-color 0.3s, transform 0.3s ease;
+        animation: bounce 2s infinite;
+      }
+
+      button:hover {
+        background-color: #e94b3c;
+        transform: translateY(-5px);
+      }
+
+      #contestLink {
+        margin-top: 30px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        display: none;
+        text-align: center;
+        animation: fadeIn 0.8s ease-in-out forwards;
+      }
+
+      img {
+        height: 40%;
+        margin-bottom: 30px;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in-out forwards;
+      }
+
+      .timer {
+        font-size: 86px;
+        margin-bottom: 20px;
+        color: #ff303a;
+        font-weight: bold;
+      }
+
+      a {
+        text-decoration: none;
+        color: #009efd;
+        transition: color 0.3s;
+      }
+
+      a:hover {
+        color: #0076d1;
+      }
+
+      /* Confetti Styles */
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        top: -100px;
+        animation: fall linear 5s infinite;
+        opacity: 0.8;
+        border-radius: 50%;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+        }
+      }
+
+      .confetti:nth-child(5n) {
+        background-color: #ff6f61;
+      }
+
+      .confetti:nth-child(5n + 1) {
+        background-color: #28a745;
+      }
+
+      .confetti:nth-child(5n + 2) {
+        background-color: #ffc107;
+      }
+
+      .confetti:nth-child(5n + 3) {
+        background-color: #007bff;
+      }
+
+      .confetti:nth-child(5n + 4) {
+        background-color: #6f42c1;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="./img.jpeg" alt="Contest Image" />
+    <button class="button-launch" onclick="showContestLink()">Launch</button>
+
+    <div id="contestLink">
+      <h1 class="timer" id="timer">01:00:00</h1>
+      <h3>Visit the contest at:</h3>
+      <h2>
+        <a href="https://www.hackerrank.com/contests/hack-n-slash-2" target="_blank">
+          https://www.hackerrank.com/contests/hack-n-slash-2
+        </a>
+      </h2>
+    </div>
+
+    <div id="confetti-container"></div>
+
+    <script>
+      function showContestLink() {
+        const contestLink = document.getElementById('contestLink');
+        const btn = document.querySelector('.button-launch');
+        const img = document.querySelector('img');
+        contestLink.style.display = 'block';
+        btn.style.display = 'none';
+        img.style.display = 'none';
+        startTimer(3600);
+        startConfetti();
+      }
+
+      function startTimer(duration) {
+        let timer = duration,
+          hours,
+          minutes,
+          seconds;
+        const display = document.getElementById('timer');
+        setInterval(function () {
+          hours = Math.floor(timer / 3600);
+          minutes = Math.floor((timer % 3600) / 60);
+          seconds = Math.floor(timer % 60);
+
+          hours = hours < 10 ? '0' + hours : hours;
+          minutes = minutes < 10 ? '0' + minutes : minutes;
+          seconds = seconds < 10 ? '0' + seconds : seconds;
+
+          display.textContent = hours + ':' + minutes + ':' + seconds;
+
+          if (--timer < 0) {
+            display.textContent = "Time's Up!";
+          }
+        }, 1000);
+      }
+
+      function startConfetti() {
+        const confettiCount = 200;
+        const container = document.getElementById('confetti-container');
+
+        for (let i = 0; i < confettiCount; i++) {
+          const confetti = document.createElement('div');
+          confetti.classList.add('confetti');
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.animationDuration = Math.random() * 3 + 3 + 's';
+          container.appendChild(confetti);
+        }
+
+        setTimeout(() => {
+          container.innerHTML = '';
+        }, 5000);
+      }
+    </script>
+  </body>
+</html>

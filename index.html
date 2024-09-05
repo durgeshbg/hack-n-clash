@@ -34,14 +34,14 @@
         align-items: center;
         height: 100vh;
         margin: 0;
-        background: linear-gradient(135deg, #ffffff, #a4a4fd);
+        background: linear-gradient(135deg, #ffffff, #babaff);
         overflow: hidden;
       }
 
       button {
         padding: 20px 40px;
         font-size: 48px;
-        background-color: #ff5e57;
+        background-color: #6a6afd;
         color: white;
         border: none;
         border-radius: 15px;
@@ -52,7 +52,7 @@
       }
 
       button:hover {
-        background-color: #e94b3c;
+        background-color: #5151fa;
         transform: translateY(-5px);
       }
 
@@ -77,8 +77,13 @@
       .timer {
         font-size: 86px;
         margin-bottom: 20px;
-        color: #ff303a;
+        color: #28a745;
         font-weight: bold;
+        border: 1px solid;
+        border-radius: 25px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        box-shadow: 10px 5px 5px #28a745;
       }
 
       a {
@@ -140,8 +145,8 @@
       <h1 class="timer" id="timer">01:00:00</h1>
       <h3>Visit the contest at:</h3>
       <h2>
-        <a href="https://www.hackerrank.com/contests/hack-n-slash-2" target="_blank">
-          https://www.hackerrank.com/contests/hack-n-slash-2
+        <a href="https://www.hackerrank.com/contests/hack-n-clash-2" target="_blank">
+          https://www.hackerrank.com/contests/hack-n-clash-2
         </a>
       </h2>
     </div>
@@ -156,7 +161,7 @@
         contestLink.style.display = 'block';
         btn.style.display = 'none';
         img.style.display = 'none';
-        startTimer(3600);
+        startTimer(3);
         startConfetti();
       }
 
@@ -179,6 +184,9 @@
 
           if (--timer < 0) {
             display.textContent = "Time's Up!";
+            display.style.color = '#ff303a';
+            display.style.boxShadow = "10px 5px 5px #ff303a";
+            
           }
         }, 1000);
       }

@@ -75,15 +75,26 @@
       }
 
       .timer {
-        font-size: 86px;
+        font-size: 80px;
         margin-bottom: 20px;
         color: #28a745;
         font-weight: bold;
         border: 1px solid;
         border-radius: 25px;
-        padding-top: 30px;
-        padding-bottom: 30px;
         box-shadow: 10px 5px 5px #28a745;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: baseline;
+      }
+
+      .timer div {
+        text-align: center;
+      }
+
+      .time-unit {
+        font-size: 24px;
+        color: #555;
       }
 
       a {
@@ -142,7 +153,27 @@
     <button class="button-launch" onclick="showContestLink()">Launch</button>
 
     <div id="contestLink">
-      <h1 class="timer" id="timer">01:00:00</h1>
+      <div class="timer" id="timer">
+        <div>
+          <span id="days">04</span>
+          <div class="time-unit">Days</div>
+        </div>
+        <p>:</p>
+        <div>
+          <span id="hours">09</span>
+          <div class="time-unit">Hours</div>
+        </div>
+        <p>:</p>
+        <div>
+          <span id="minutes">59</span>
+          <div class="time-unit">Minutes</div>
+        </div>
+        <p>:</p>
+        <div>
+          <span id="seconds">00</span>
+          <div class="time-unit">Seconds</div>
+        </div>
+      </div>
       <h3>Visit the contest at:</h3>
       <h2>
         <a href="https://www.hackerrank.com/contests/hack-n-clash-2" target="_blank">
@@ -161,32 +192,38 @@
         contestLink.style.display = 'block';
         btn.style.display = 'none';
         img.style.display = 'none';
-        startTimer(3);
+        startTimer(381540);
         startConfetti();
       }
 
       function startTimer(duration) {
         let timer = duration,
+          days,
           hours,
           minutes,
           seconds;
-        const display = document.getElementById('timer');
+
+        const daysDisplay = document.getElementById('days');
+        const hoursDisplay = document.getElementById('hours');
+        const minutesDisplay = document.getElementById('minutes');
+        const secondsDisplay = document.getElementById('seconds');
+
         setInterval(function () {
-          hours = Math.floor(timer / 3600);
+          days = Math.floor(timer / (24 * 3600));
+          hours = Math.floor((timer % (24 * 3600)) / 3600);
           minutes = Math.floor((timer % 3600) / 60);
           seconds = Math.floor(timer % 60);
 
-          hours = hours < 10 ? '0' + hours : hours;
-          minutes = minutes < 10 ? '0' + minutes : minutes;
-          seconds = seconds < 10 ? '0' + seconds : seconds;
-
-          display.textContent = hours + ':' + minutes + ':' + seconds;
+          daysDisplay.textContent = days < 10 ? '0' + days : days;
+          hoursDisplay.textContent = hours < 10 ? '0' + hours : hours;
+          minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
+          secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
 
           if (--timer < 0) {
-            display.textContent = "Time's Up!";
-            display.style.color = '#ff303a';
-            display.style.boxShadow = "10px 5px 5px #ff303a";
-            
+            clearInterval();
+            document.querySelector('.timer').textContent = "Time's Up!";
+            document.querySelector('.timer').style.color = '#ff303a';
+            document.querySelector('.timer').style.boxShadow = '10px 5px 5px #ff303a';
           }
         }, 1000);
       }
